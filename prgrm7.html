@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Calendar</title>
+
+<style>
+table{
+  border-collapse:collapse;
+  margin-bottom:10px;
+  width:100%;
+  background-color:lightcyan;
+  border:2px solid darkblue;
+}
+
+th,td{
+  padding:5px;
+  text-align:center;
+}
+
+th{
+  background-color:darkblue;
+  color:white;
+}
+
+td{
+  border:1px solid skyblue;
+}
+
+td:hover{
+  background-color:lightpink;
+}
+
+#calendar{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:15px;
+}
+
+body{
+  background-color:lightblue;
+}
+</style>
+</head>
+
+<body bgcolor="lightblue">
+
+<h2>Generate calendar for a year</h2>
+
+<p><i>Enter the year:</i></p>
+
+<input type="number" id="yearInput" placeholder="enter year">
+
+<button onclick="generatecalendar()">generate calendar</button>
+
+<div id="calendar"></div>
+
+<script>
+function generatecalendar(){
+
+const year = document.getElementById("yearInput").value;
+
+if(!year||isNaN(year)||year<1000||year>9999){
+alert("please enter a valid number between 1000 and 9999");
+return;
+}
+
+const calendarDiv = document.getElementById("calendar");
+calendarDiv.innerHTML='';
+
+const months=[
+"January","February","March","April","May","June",
+"July","August","September","October","November","December"];
+
+for(let month=0;month<12;month++)
+{
+let monthHTML=`<table border="1"><th colspan="7"><strong>
+${months[month]} ${year}</strong></th>`;
+
+monthHTML +=`<tr>
+<th>Sun</th><th>Mon</th><th>Tue</th>
+<th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+</tr>`;
+
+const firstday=new Date(year,month,1).getDay();
+const daysInMonth=new Date(year,month+1,0).getDate();
+
+let dayCounter=1;
+
+for(let i=0;i<6;i++){
+  let row=`<tr>`;
+
+  for(let j=0;j<7;j++){
+
+    if(i==0&&j<firstday){
+      row+=`<td></td>`;
+    }
+    else if (dayCounter<=daysInMonth)
+    {
+      row +=`<td>${dayCounter}</td>`;
+      dayCounter++;
+    }
+    else{
+      row+=`<td></td>`;
+    }
+  }
+
+  row+=`</tr>`;
+  monthHTML+=row;
+
+  if(dayCounter>daysInMonth)break;
+}
+
+monthHTML+=`</table>`;
+
+calendarDiv.innerHTML+=monthHTML;
+}
+
+}
+</script>
+
+</body>
+</html>
+
