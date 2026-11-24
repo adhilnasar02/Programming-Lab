@@ -1,0 +1,29 @@
+<Html>
+<head>
+  <title>Change background Color</title>
+</head>
+<body>
+<table width="100%" height="100%">
+<tr>
+<td align="center" valign="middle">
+<center>
+<h2>Change Background Color</h2>
+<button onclick="changeColor()">Click Me</button>
+</center>
+</td>
+</tr>
+</table>
+
+<script>
+let colors = ["red","blue","green","yellow","pink"];
+let i=0;
+function changeColor(){
+document.body.style.background=colors[i];
+i++;
+if(i==5){
+i=0;
+}
+}
+</script>
+</body>
+<html>
